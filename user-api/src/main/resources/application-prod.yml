@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    jdbc-url: jdbc:mysql://192.168.219.101:3306/zborder?serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true
+    username: root
+    password: 6188
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+mailgun:
+  api-key: ${MAILGUN_API_KEY:97c30a685bbe6a6a9ca8bcc6b0cd4519-78f6ccbe-ff1db3e4}
+  domain: ${MAILGUN_DOMAIN:sandbox0dc258dd80fd43fe96e4a6c52b47e8c8.mailgun.org}
+  from: no-reply@zerobase.com  # 발신자 이메일
+
+jwt:
+  secret-key: ${JWT_SECRET:my-secret-key-123456789-my-secret-key-123456789-my-secret-key-123456789}
+  token-expired-time-ms: 86400000 # 24시간

@@ -1,0 +1,5 @@
+rootProject.name = 'zb-cms-project'
+include 'domain'
+include 'user-api'
+include 'order-api'
+
