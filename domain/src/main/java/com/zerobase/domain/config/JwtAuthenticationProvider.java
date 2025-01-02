@@ -19,11 +19,11 @@ public class JwtAuthenticationProvider {
         claims.put("roles", userType);
         Date now = new Date();
         return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + tokenValidTime))
-                .signWith(SignatureAlgorithm.HS256, secretKey)
-                .compact();
+            .setClaims(claims)
+            .setIssuedAt(now)
+            .setExpiration(new Date(now.getTime() + tokenValidTime))
+            .signWith(SignatureAlgorithm.HS256, secretKey)
+            .compact();
     }
 
     public boolean validateToken(String jwtToken) {
@@ -38,6 +38,6 @@ public class JwtAuthenticationProvider {
     public UserVo getUserVo(String token) {
         Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
         return new UserVo(Long.valueOf(Objects.requireNonNull(Aes256Util.decrypt(claims.getId()))),
-                Aes256Util.decrypt(claims.getSubject()));
+            Aes256Util.decrypt(claims.getSubject()));
     }
 }
