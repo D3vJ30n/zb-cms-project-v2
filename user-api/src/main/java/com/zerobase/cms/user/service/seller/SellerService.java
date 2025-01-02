@@ -17,10 +17,14 @@ public class SellerService {
     private final SellerRepository sellerRepository;
 
     public Optional<Seller> findByIdAndEmail(Long id, String email) {
-        return sellerRepository.findByIdAndEmail(id, email);
+        // Since we don't have findByIdAndEmail anymore, we'll use findById and check email
+        return sellerRepository.findById(id)
+            .filter(seller -> seller.getEmail().equals(email));
     }
+
     public Optional<Seller> findValidSeller(String email, String password) {
-        return sellerRepository.findByEmailAndPasswordAndVerifyIsTrue(email, password);
+        return sellerRepository.findByEmailAndPassword(email, password)
+            .filter(Seller::isVerify);
     }
 
     public Seller signUp(SignUpForm form) {

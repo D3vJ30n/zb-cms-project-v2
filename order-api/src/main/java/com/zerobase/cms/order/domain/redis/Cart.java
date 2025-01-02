@@ -4,7 +4,7 @@ import com.zerobase.cms.order.domain.product.AddProductCartForm;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.Id;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

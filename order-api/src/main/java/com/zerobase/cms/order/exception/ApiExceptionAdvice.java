@@ -1,6 +1,6 @@
 package com.zerobase.cms.order.exception;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
