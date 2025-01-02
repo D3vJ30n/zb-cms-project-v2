@@ -24,7 +24,7 @@ public class SellerFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         String token = req.getHeader("X-AUTH-TOKEN");
-        if(!jwtAuthenticationProvider.validateToken(token)) {
+        if(jwtAuthenticationProvider.validateToken(token)) {
             throw new ServletException("Invalid Access");
         }
         UserVo vo = jwtAuthenticationProvider.getUserVo(token);

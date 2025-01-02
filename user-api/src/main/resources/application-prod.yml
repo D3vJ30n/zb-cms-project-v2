@@ -1,17 +1,24 @@
 spring:
   datasource:
-    jdbc-url: jdbc:mysql://192.168.219.101:3306/zborder?serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true
-    username: root
-    password: 6188
+    jdbc-url: jdbc:mysql://zerobase-rds-instance.cjkgztllbnl0.ap-northest-2.rds.amazonaws.com:3306/user?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+    username: zerobaseadmin
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+  port: 8081
+  shutdown: graceful
 
 mailgun:
   api-key: ${MAILGUN_API_KEY:97c30a685bbe6a6a9ca8bcc6b0cd4519-78f6ccbe-ff1db3e4}
@@ -21,3 +28,4 @@ mailgun:
 jwt:
   secret-key: ${JWT_SECRET:my-secret-key-123456789-my-secret-key-123456789-my-secret-key-123456789}
   token-expired-time-ms: 86400000 # 24시간
+  secret: ${JWT_SECRET}
