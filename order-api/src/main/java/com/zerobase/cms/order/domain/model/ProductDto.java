@@ -1,5 +1,6 @@
 package com.zerobase.cms.order.domain.model;
 
+import com.zerobase.cms.order.domain.model.Product;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;

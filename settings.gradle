@@ -1,5 +1,4 @@
-rootProject.name = 'zb-cms-project'
+rootProject.name = 'zb-cms-project-v2'
 include 'domain'
 include 'user-api'
 include 'order-api'
-

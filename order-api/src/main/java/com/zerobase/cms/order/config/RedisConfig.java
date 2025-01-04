@@ -3,6 +3,7 @@ package com.zerobase.cms.order.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -22,5 +23,10 @@ public class RedisConfig {
         redisTemplate.setHashKeySerializer(serializer);
         redisTemplate.setHashValueSerializer(serializer);
         return redisTemplate;
+    }
+
+    @Bean
+    public RedisConnectionFactory redisConnectionFactory() {
+        return new LettuceConnectionFactory();
     }
 }

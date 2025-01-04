@@ -1,7 +1,6 @@
 package com.zerobase.cms.order.domain.model;
 
 import com.zerobase.cms.order.domain.product.AddProductItemForm;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

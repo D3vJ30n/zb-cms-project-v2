@@ -8,6 +8,7 @@ import com.zerobase.cms.order.domain.repository.ProductItemRepository;
 import com.zerobase.cms.order.domain.repository.ProductRepository;
 import com.zerobase.cms.order.exception.CustomException;
 import com.zerobase.cms.order.exception.ErrorCode;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +21,13 @@ public class ProductItemService {
 
     @Transactional
     public ProductItem getProductItem(Long id) {
-        return productItemRepository.getById(id);
+        return productItemRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("상품 아이템을 찾을 수 없습니다. id = " + id));
     }
 
     @Transactional
     public Product addProductItem(Long sellerId, AddProductItemForm form) {
-        Product product = productRepository.findBySellerIdAndId(sellerId, form.getProductId())
+        Product product = productRepository.findById(form.getProductId())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_PRODUCT));
         if (product.getProductItems().stream()
                 .anyMatch(item -> item.getName().equals(form.getName()))) {

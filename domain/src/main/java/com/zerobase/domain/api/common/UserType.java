@@ -1,4 +1,4 @@
-package com.zerobase.domain.common;
+package com.zerobase.domain.api.common;
 
 public enum UserType {
     CUSTOMER, SELLER

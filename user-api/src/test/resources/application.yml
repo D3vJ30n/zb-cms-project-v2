@@ -1,0 +1,37 @@
+server:
+  port: 8081
+  shutdown: graceful
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+      
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+    
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        show_sql: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  main:
+    allow-bean-definition-overriding: true
+
+encryption:
+  key: h7fLb8vdZaPS7hXfxWkl1BZvF3NWm1QY4BCD1fp5rkw=
+
+jwt:
+  secret: ${JWT_SECRET:1gPK1wt8HsfsfYJvgn7R0+8+Bwr7MYMlvwi65Wcu8Gw=}

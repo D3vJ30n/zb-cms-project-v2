@@ -11,13 +11,13 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI api() {
         return new OpenAPI()
-                .info(apiInfo());
+            .info(apiInfo());
     }
 
     private Info apiInfo() {
         return new Info()
-                .title("CMS User API")
-                .description("CMS User API 명세서")
-                .version("1.0.0");
+            .title("Zerobase CMS User API")
+            .description("User API Documentation")
+            .version("1.0.0");
     }
 }

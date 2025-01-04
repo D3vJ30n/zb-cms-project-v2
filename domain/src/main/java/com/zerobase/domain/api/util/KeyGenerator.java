@@ -1,4 +1,4 @@
-package com.zerobase.domain.util;
+package com.zerobase.domain.api.util;
 
 public class KeyGenerator {
     public static void main(String[] args) {

@@ -2,7 +2,6 @@ package com.zerobase.cms.order.controller;
 
 import com.zerobase.cms.order.domain.model.ProductDto;
 import com.zerobase.cms.order.service.ProductSearchService;
-import com.zerobase.domain.config.JwtAuthenticationProvider;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;

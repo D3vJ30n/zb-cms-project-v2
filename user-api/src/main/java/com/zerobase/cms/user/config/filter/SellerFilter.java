@@ -1,17 +1,14 @@
 package com.zerobase.cms.user.config.filter;
 
 import com.zerobase.cms.user.service.seller.SellerService;
-import com.zerobase.domain.common.UserVo;
-import com.zerobase.domain.config.JwtAuthenticationProvider;
-import java.io.IOException;
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
+import com.zerobase.domain.api.common.UserVo;
+import com.zerobase.domain.api.config.JwtAuthenticationProvider;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @WebFilter(urlPatterns = "/seller/*")

@@ -1,0 +1,139 @@
+### 회원가입 (고객)
+POST http://localhost:8081/signup/customer
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "name": "테스트",
+  "password": "password123",
+  "phone": "01012345678"
+}
+
+### 이메일 인증 (고객)
+GET http://localhost:8081/signup/customer/verify?email=test@example.com&code=123456
+
+### 로그인 (고객)
+POST http://localhost:8081/signin/customer
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+### 회원 정보 조회 (고객)
+GET http://localhost:8081/customer/getInfo
+Content-Type: application/json
+X-AUTH-TOKEN: {{auth_token}}
+
+### 잔액 변경 (고객)
+PUT http://localhost:8081/customer/balance
+Content-Type: application/json
+X-AUTH-TOKEN: {{auth_token}}
+
+{
+  "from": "나의 계좌",
+  "message": "충전",
+  "money": 50000
+}
+
+### 비밀번호 변경 (고객)
+PUT http://localhost:8081/customer/password
+X-AUTH-TOKEN: {{auth_token}}
+Content-Type: application/json
+
+{
+  "currentPassword": "password123",
+  "newPassword": "newPassword123"
+}
+
+### 회원 정보 수정 (고객)
+PUT http://localhost:8081/customer/info
+X-AUTH-TOKEN: {{auth_token}}
+Content-Type: application/json
+
+{
+  "name": "새이름",
+  "phone": "01087654321"
+}
+
+### 회원 탈퇴 (고객)
+DELETE http://localhost:8081/customer/delete
+Content-Type: application/json
+X-AUTH-TOKEN: {{auth_token}}
+
+{
+  "password": "password123"
+}
+
+### 잔액 조회 (고객)
+GET http://localhost:8081/customer/balance
+X-AUTH-TOKEN: {{auth_token}}
+
+################################################
+
+### 회원가입 (셀러)
+POST http://localhost:8082/signup/seller
+Content-Type: application/json
+
+{
+  "email": "seller@example.com",
+  "name": "판매자",
+  "password": "password123",
+  "phone": "01012345678"
+}
+
+### 이메일 인증 (셀러)
+GET http://localhost:8082/signup/seller/verify?email=seller@example.com&code=123456
+
+### 로그인 (셀러)
+POST http://localhost:8082/signin/seller
+Content-Type: application/json
+
+{
+  "email": "seller@example.com",
+  "password": "password123"
+}
+
+### 회원가입 (고객)
+POST http://localhost:8081/signup/customer
+Content-Type: application/json
+
+{
+  "email": "customer1@example.com",
+  "name": "고객1",
+  "password": "password123",
+  "phone": "010-1234-5678"
+}
+
+### 회원가입 (판매자)
+POST http://localhost:8082/signup/seller
+Content-Type: application/json
+
+{
+  "email": "seller1@example.com",
+  "name": "판매자1",
+  "password": "password123",
+  "phone": "010-9876-5432"
+}
+
+### 로그인 (고객)
+POST http://localhost:8081/signin/customer
+Content-Type: application/json
+
+{
+  "email": "customer1@example.com",
+  "password": "password123"
+}
+
+### 로그인 (판매자)
+POST http://localhost:8082/signin/seller
+Content-Type: application/json
+
+{
+  "email": "seller1@example.com",
+  "password": "password123"
+}
+
+### 환경 변수 설정
+@auth_token = eyJhbGciOiJIUzI1NiJ9...  # 로그인 후 받은 토큰으로 교체해주세요

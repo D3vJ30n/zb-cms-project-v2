@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0.40
+    container_name: zb-cms-mysql
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_DATABASE: zb_cms
+      MYSQL_USER: zb_user
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: root_6188
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    networks:
+      - zb_network
+
+  redis:
+    image: redis:latest
+    container_name: redis-local
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - zb_network
+    command: redis-server --appendonly yes
+
+networks:
+  zb_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  redis_data:
