@@ -34,7 +34,14 @@ public class ProductItemService {
             throw new CustomException(ErrorCode.SAME_ITEM_NAME);
         }
 
-        ProductItem productItem = ProductItem.of(sellerId, form);
+        ProductItem productItem = ProductItem.builder()
+                .sellerId(sellerId)
+                .name(form.getName())
+                .price(form.getPrice())
+                .count(form.getCount())
+                .product(product)
+                .build();
+
         product.getProductItems().add(productItem);
         return product;
     }

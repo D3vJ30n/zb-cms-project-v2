@@ -16,36 +16,23 @@ import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 
 @Entity
-@Setter
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Audited
 @AuditOverride(forClass = BaseEntity.class)
 public class ProductItem extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long sellerId;
-
-    @Audited // 변화가 발생하면 무조건 저장해라.
     private String name;
-
-    @Audited
     private Integer price;
     private Integer count;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
-    public static ProductItem of(Long sellerId, AddProductItemForm form) {
-        return ProductItem.builder()
-                .sellerId(sellerId)
-                .name(form.getName())
-                .price(form.getPrice())
-                .count(form.getCount())
-                .build();
-    }
 }

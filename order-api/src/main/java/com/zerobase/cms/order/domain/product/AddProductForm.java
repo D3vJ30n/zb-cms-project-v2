@@ -13,5 +13,15 @@ import lombok.NoArgsConstructor;
 public class AddProductForm {
     private String name;
     private String description;
-    private List<AddProductItemForm> items;
+    private List<ProductItem> items;
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ProductItem {
+        private String name;
+        private Integer price;
+        private Integer count;
+    }
 }

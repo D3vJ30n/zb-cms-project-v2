@@ -20,8 +20,8 @@ import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 
 @Entity
-@Setter
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,7 +31,6 @@ public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long sellerId;
     private String name;
     private String description;
@@ -47,7 +46,12 @@ public class Product extends BaseEntity {
                 .name(form.getName())
                 .description(form.getDescription())
                 .productItems(form.getItems().stream()
-                        .map(piForm -> ProductItem.of(sellerId, piForm))
+                        .map(piForm -> ProductItem.builder()
+                                .sellerId(sellerId)
+                                .name(piForm.getName())
+                                .price(piForm.getPrice())
+                                .count(piForm.getCount())
+                                .build())
                         .collect(Collectors.toList()))
                 .build();
     }

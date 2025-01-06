@@ -1,7 +1,6 @@
 package com.zerobase.cms.user.domain.model;
 
 import com.zerobase.cms.user.domain.SignUpForm;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import jakarta.persistence.Column;
@@ -35,18 +34,15 @@ public class Seller extends BaseEntity{
     private String name;
     private String password;
     private String phone;
-    private LocalDate birth;
-
     private LocalDateTime verifyExpiredAt;
     private String verificationCode;
     private boolean verify;
 
     public static Seller from(SignUpForm form) {
         return Seller.builder()
-                .email(form.getEmail().toLowerCase(Locale.ROOT))
-                .password(form.getPassword())
+                .email(form.getEmail())
                 .name(form.getName())
-                .birth(form.getBirth())
+                .password(form.getPassword())
                 .phone(form.getPhone())
                 .verify(false)
                 .build();

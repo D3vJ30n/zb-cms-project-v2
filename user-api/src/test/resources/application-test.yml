@@ -1,32 +1,43 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MySQL
+    url: jdbc:h2:mem:testdb;MODE=MySQL
     driver-class-name: org.h2.Driver
     username: sa
     password:
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  main:
+    allow-bean-definition-overriding: true
 
   cloud:
     openfeign:
-      client:
-        config:
-          default:
-            connectTimeout: 5000
-            readTimeout: 5000
+      enabled: false
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jxxdxmxx2@gmail.com
+    password: hovt vstb ofja umit
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 jwt:
-  secret:
-    key: testsecretkeytestsecretkeytestsecretkeytestsecretkey
+  secret-key: test-key-test-key-test-key-test-key-test-key-test-key-test-key
 
-mailgun:
-  key: test-key
-  domain: test.domain.com
-  sender: test@test.com
+logging:
+  level:
+    com.zerobase.cms.user: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE

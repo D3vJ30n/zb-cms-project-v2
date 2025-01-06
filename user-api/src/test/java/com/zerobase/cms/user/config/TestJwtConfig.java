@@ -3,6 +3,7 @@ package com.zerobase.cms.user.config;
 import com.zerobase.domain.config.JwtAuthenticationProvider;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -20,7 +21,7 @@ public class TestJwtConfig {
 
     @Bean
     @Primary
-    public JwtAuthenticationProvider testJwtAuthenticationProvider(SecretKey secretKey) {
+    public JwtAuthenticationProvider testJwtAuthenticationProvider(@Qualifier("testJwtSecretKey") SecretKey secretKey) {
         return new JwtAuthenticationProvider(secretKey);
     }
-} 
+}

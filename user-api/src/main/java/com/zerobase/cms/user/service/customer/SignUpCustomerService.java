@@ -5,15 +5,17 @@ import com.zerobase.cms.user.domain.model.Customer;
 import com.zerobase.cms.user.domain.repository.CustomerRepository;
 import com.zerobase.cms.user.exception.CustomException;
 import com.zerobase.cms.user.exception.ErrorCode;
-import java.time.LocalDateTime;
-import java.util.Locale;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class SignUpCustomerService {
+
     private final CustomerRepository customerRepository;
 
     public Customer signUp(SignUpForm form) {
@@ -21,17 +23,7 @@ public class SignUpCustomerService {
     }
 
     public boolean isEmailExist(String email) {
-        return customerRepository.findByEmail(email.toLowerCase(Locale.ROOT))
-                .isPresent();
-    }
-
-    @Transactional
-    public LocalDateTime changeCustomerValidateEmail(Long customerId, String verificationCode) {
-        Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
-        customer.setVerificationCode(verificationCode);
-        customer.setVerifyExpiredAt(LocalDateTime.now().plusDays(1));
-        return customer.getVerifyExpiredAt();
+        return customerRepository.findByEmail(email).isPresent();
     }
 
     @Transactional
@@ -39,14 +31,20 @@ public class SignUpCustomerService {
         Customer customer = customerRepository.findByEmail(email)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
         if (customer.isVerify()) {
-            throw new CustomException(ErrorCode.ALREADY_VERIFY);
-        }
-        else if (!customer.getVerificationCode().equals(code)) {
+            throw new CustomException(ErrorCode.ALREADY_VERIFIED);
+        } else if (!customer.getVerificationCode().equals(code)) {
             throw new CustomException(ErrorCode.WRONG_VERIFICATION);
         }
-        else if (customer.getVerifyExpiredAt().isBefore(LocalDateTime.now())) {
-            throw new CustomException(ErrorCode.EXPIRED_CODE);
-        }
         customer.setVerify(true);
+    }
+
+    @Transactional
+    public void changeCustomerValidateEmail(Long customerId, String verificationCode) {
+        Optional<Customer> customerOptional = customerRepository.findById(customerId);
+        if (customerOptional.isPresent()) {
+            Customer customer = customerOptional.get();
+            customer.setVerificationCode(verificationCode);
+            customer.setVerifyExpiredAt(LocalDateTime.now().plusDays(1));
+        }
     }
 }

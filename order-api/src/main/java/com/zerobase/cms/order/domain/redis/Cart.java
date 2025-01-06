@@ -23,6 +23,7 @@ public class Cart {
 
     public Cart(Long customerId) {
         this.customerId = customerId;
+        this.products = new ArrayList<>();
     }
 
     public void addMessage(String message) {
@@ -47,7 +48,9 @@ public class Cart {
                     .sellerId(form.getSellerId())
                     .name(form.getName())
                     .description(form.getDescription())
-                    .items(form.getItems().stream().map(ProductItem::from).collect(Collectors.toList()))
+                    .items(form.getItems().stream()
+                            .map(ProductItem::from)
+                            .collect(Collectors.toList()))
                     .build();
         }
     }

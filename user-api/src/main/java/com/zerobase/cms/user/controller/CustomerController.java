@@ -7,8 +7,8 @@ import com.zerobase.cms.user.exception.CustomException;
 import com.zerobase.cms.user.exception.ErrorCode;
 import com.zerobase.cms.user.service.customer.CustomerBalanceService;
 import com.zerobase.cms.user.service.customer.CustomerService;
-import com.zerobase.domain.api.common.UserVo;
-import com.zerobase.domain.api.config.JwtAuthenticationProvider;
+import com.zerobase.domain.config.UserVo;
+import com.zerobase.domain.config.JwtAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private final JwtAuthenticationProvider provider; 
+    private final JwtAuthenticationProvider jwtAuthenticationProvider;
     private final CustomerService customerService;
     private final CustomerBalanceService customerBalanceService;
 
     @GetMapping("/getInfo")
     public ResponseEntity<CustomerDto> getInfo(@RequestHeader(name = "X-AUTH-TOKEN") String token) {
-        UserVo vo = provider.getUserVo(token);
+        UserVo vo = jwtAuthenticationProvider.getUserVo(token);
         Customer customer = customerService.findByIdAndEmail(vo.getId(), vo.getEmail()).orElseThrow(
                 () -> new CustomException(ErrorCode.NOT_FOUND_USER));
         return ResponseEntity.ok(CustomerDto.from(customer));
@@ -33,7 +33,7 @@ public class CustomerController {
     @PostMapping("/balance")
     public ResponseEntity<Integer> changeBalance(@RequestHeader(name = "X-AUTH-TOKEN") String token,
                                                  @RequestBody ChangeBalanceForm form) {
-        UserVo vo = provider.getUserVo(token);
+        UserVo vo = jwtAuthenticationProvider.getUserVo(token);
         return ResponseEntity.ok(customerBalanceService.changeBalance(vo.getId(), form).getCurrentMoney());
     }
 }
