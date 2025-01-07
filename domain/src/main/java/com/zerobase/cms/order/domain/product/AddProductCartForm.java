@@ -1,13 +1,13 @@
 package com.zerobase.cms.order.domain.product;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Data;
 
-@Data
+import java.util.List;
+
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +18,7 @@ public class AddProductCartForm {
     private String description;
     private List<ProductItem> items;
 
-    @Data
+    @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
@@ -28,4 +28,4 @@ public class AddProductCartForm {
         private Integer count;
         private Integer price;
     }
-}
+} 

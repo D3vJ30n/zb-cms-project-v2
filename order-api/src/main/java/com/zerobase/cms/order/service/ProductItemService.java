@@ -26,24 +26,17 @@ public class ProductItemService {
     }
 
     @Transactional
-    public Product addProductItem(Long sellerId, AddProductItemForm form) {
+    public ProductItem addProductItem(Long sellerId, AddProductItemForm form) {
         Product product = productRepository.findById(form.getProductId())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_PRODUCT));
-        if (product.getProductItems().stream()
-                .anyMatch(item -> item.getName().equals(form.getName()))) {
-            throw new CustomException(ErrorCode.SAME_ITEM_NAME);
+        
+        if (!product.getSellerId().equals(sellerId)) {
+            throw new CustomException(ErrorCode.NOT_FOUND_PRODUCT);
         }
-
-        ProductItem productItem = ProductItem.builder()
-                .sellerId(sellerId)
-                .name(form.getName())
-                .price(form.getPrice())
-                .count(form.getCount())
-                .product(product)
-                .build();
-
+        
+        ProductItem productItem = ProductItem.of(product, form);
         product.getProductItems().add(productItem);
-        return product;
+        return productItemRepository.save(productItem);
     }
 
     @Transactional
